@@ -4,6 +4,7 @@ package com.vtd.controller;
 import com.vtd.dto.request.AddTestRequest;
 import com.vtd.dto.response.ApiResponse;
 import com.vtd.service.TestService;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class TestController {
         return ResponseEntity.ok(testService.getTest(id));
     }
     @PostMapping()
-    public ResponseEntity<ApiResponse> saveTest(@RequestBody AddTestRequest addTestRequest) {
+    public ResponseEntity<ApiResponse> saveTest(@Valid @RequestBody AddTestRequest addTestRequest) {
         return ResponseEntity.ok(testService.save(addTestRequest));
     }
     @DeleteMapping(value = "/delete-test/{id}")

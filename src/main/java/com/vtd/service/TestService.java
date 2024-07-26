@@ -33,10 +33,8 @@ public class TestService {
      * @return
      */
     public ApiResponse getTest(int id) {
-        Test test = testRepository.findById(id).orElse(null);
-        if(test == null){
-            return new ApiResponse(404, "could not find test for id: " + id , null);
-        }
+        Test test = testRepository.findById(id).orElseThrow(() -> new ApiException(404, "could not find test for id: " + id));
+
         return new ApiResponse(200 , "OK", test);
     }
 
@@ -47,12 +45,12 @@ public class TestService {
      */
     public ApiResponse delete(int id) {
         try {
-            Test test = testRepository.getReferenceById(id);
+            Test test = testRepository.findById(id).orElseThrow(() -> new ApiException(404, "could not find test for id: " + id));
             testRepository.delete(test);
             return new ApiResponse(200, "delete successfully", null);
         }catch (Exception e) {
             log.error(e.getMessage());
-            return new ApiResponse(400 , " delete failed", null);
+            throw new ApiException(400, " deleting test failed");
         }
     }
 
@@ -68,7 +66,7 @@ public class TestService {
 
         }catch (Exception e) {
             log.error(e.getMessage());
-            return new ApiResponse(400, "Could not save test: " + addTestRequest.toString(), null);
+            throw new ApiException(400, "could not save test: " + addTestRequest.toString() + " to database");
 
         }
     }
