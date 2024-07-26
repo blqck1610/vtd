@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 public class TestMapper {
     /**
      * convert AddTestRequest to Test
-     * @param addTestRequest
-     * @return
+     * @param addTestRequest: data to convert to Test
+     * @return Test
      */
     public Test fromAddTestRequest(AddTestRequest addTestRequest) {
         return Test.builder()

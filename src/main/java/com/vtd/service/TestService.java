@@ -29,8 +29,8 @@ public class TestService {
 
     /**
      * get test from database
-     * @param id
-     * @return
+     * @param id: id of test to get from database
+     * @return ApiResponse
      */
     public ApiResponse getTest(int id) {
         Test test = testRepository.findById(id).orElseThrow(() -> new ApiException(404, "could not find test for id: " + id));
@@ -40,8 +40,8 @@ public class TestService {
 
     /**
      * delete test
-     * @param id
-     * @return
+     * @param id: id of test to delete
+     * @return ApiResponse
      */
     public ApiResponse delete(int id) {
         try {
@@ -56,8 +56,8 @@ public class TestService {
 
     /**
      *  save test to database
-     * @param addTestRequest
-     * @return
+     * @param addTestRequest: data of test to save to database
+     * @return ApiResponse
      */
     public ApiResponse save(AddTestRequest addTestRequest) {
         try {
